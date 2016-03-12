@@ -16,7 +16,8 @@ https://www.assetstore.unity3d.com/jp/#!/content/17276
 # How to play the example scene
 
 1. Play the scene.
-2. put "hello"
+2. Touch the button.
+3. put "hello"
 
 
 
