@@ -13,7 +13,7 @@ https://www.assetstore.unity3d.com/jp/#!/content/17276
 3. Import UniRx from the Unity asset store.
 4. Open ConsoleDemo.unity
 
-# How to use the example scene
+# How to play the example scene
 
 1. Play the scene.
 2. put "hello"
