@@ -1,5 +1,10 @@
 # UniConsole
-Simple console system for Unity
+
+A Simple console system for Unity.
+
+This system uses UniRx and uGUI.
+
+https://www.assetstore.unity3d.com/jp/#!/content/17276
 
 # Setup
 
