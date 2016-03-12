@@ -3,7 +3,8 @@ using UniConsole;
 using UnityEngine.UI;
 using UniRx;
 
-public class ConsoleDemoScript : MonoBehaviour {
+public class ConsoleDemoScript : MonoBehaviour
+{
 
     [SerializeField]
     Canvas _canvas = null;
@@ -11,7 +12,8 @@ public class ConsoleDemoScript : MonoBehaviour {
     [SerializeField]
     Button _button = null;
 
-    void Start () {
+    void Start()
+    {
         var model = new ConsoleModel(50, 128);
         var console = ConsolePresenter.Create(model, _canvas.transform);
 
