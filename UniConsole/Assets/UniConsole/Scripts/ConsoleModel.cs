@@ -14,8 +14,6 @@ namespace UniConsole
 
         int _maxLines;
 
-        Dictionary<string, Command> _commands;
-
         public ReactiveProperty<bool> Visible { get; private set;}
 
         public ReactiveProperty<string> Text { get; private set; }
@@ -27,7 +25,6 @@ namespace UniConsole
             _fontSize = fontSize;
             _lines = new List<string>();
             _maxLines = maxLines;
-            _commands = new Dictionary<string, Command>();
 
             Visible = new ReactiveProperty<bool>();
             Text = new ReactiveProperty<string>();
@@ -56,11 +53,6 @@ namespace UniConsole
             {
                 return _fontSize;
             }
-        }
-
-        public void AddCommand(Command command)
-        {
-            _commands.Add(command.Name, command);
         }
 
         public void WriteLine(string line, string prefix = null, bool updateView = true)
