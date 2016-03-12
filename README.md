@@ -6,6 +6,8 @@ This system uses UniRx and uGUI.
 
 https://www.assetstore.unity3d.com/jp/#!/content/17276
 
+![image](https://raw.githubusercontent.com/fumobox/UniConsole/master/screenshot.png)
+
 # Setup
 
 1. Clone this repository.
