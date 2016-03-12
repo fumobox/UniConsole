@@ -2,9 +2,7 @@
 
 A simple console system for Unity.
 
-This system uses UniRx and uGUI.
-
-https://www.assetstore.unity3d.com/jp/#!/content/17276
+This system uses [UniRx](https://www.assetstore.unity3d.com/jp/#!/content/17276) and uGUI.
 
 ![image](https://raw.githubusercontent.com/fumobox/UniConsole/master/screenshot.png)
 
