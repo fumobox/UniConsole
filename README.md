@@ -1,6 +1,6 @@
 # UniConsole
 
-A Simple console system for Unity.
+A simple console system for Unity.
 
 This system uses UniRx and uGUI.
 
