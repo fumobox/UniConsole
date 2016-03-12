@@ -2,9 +2,11 @@
 
 A simple console system for Unity.
 
-This system uses [UniRx](https://www.assetstore.unity3d.com/jp/#!/content/17276) and uGUI.
-
 ![image](https://raw.githubusercontent.com/fumobox/UniConsole/master/screenshot.png)
+
+# Dependencys
+
+UniConsole requires Unity 5.x(uGUI) and [UniRx](https://www.assetstore.unity3d.com/jp/#!/content/17276) 5.x.
 
 # Setup
 
