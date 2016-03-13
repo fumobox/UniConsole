@@ -12,7 +12,7 @@ namespace UniConsole
     {
         readonly string Prefix = "$ ";
 
-        readonly string BottomSpace = System.Environment.NewLine + System.Environment.NewLine + System.Environment.NewLine;
+        readonly string BottomSpace = System.Environment.NewLine + System.Environment.NewLine;
 
         [SerializeField]
         ScrollRect _scrollRect = null;
@@ -127,10 +127,10 @@ namespace UniConsole
             inputSize.y = argument.FontSize + 20;
             inputTransform.sizeDelta = inputSize;
 
-            var textTransform = ((RectTransform)_text.transform);
-            var textSize = inputTransform.offsetMin;
-            textSize.y = argument.FontSize + 20;
-            textTransform.offsetMin = textSize;
+            var scrollViewTransform = ((RectTransform)_scrollRect.transform);
+            var scrollViewOffsetMin = inputTransform.offsetMin;
+            scrollViewOffsetMin.y = argument.FontSize + 20;
+            scrollViewTransform.offsetMin = scrollViewOffsetMin;
 
             foreach (var text in _texts)
             {
