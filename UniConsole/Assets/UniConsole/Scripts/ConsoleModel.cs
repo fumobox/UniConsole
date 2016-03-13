@@ -79,6 +79,14 @@ namespace UniConsole
             Text.Value = "";
         }
 
+        /// <summary>
+        /// Parse command.
+        /// </summary>
+        /// <remarks>
+        /// [Example]
+        /// open temp.text
+        /// create width=32 height = 16
+        /// </remarks>
         public Command ParseCommand(string line)
         {
             if (string.IsNullOrEmpty(line))
@@ -99,10 +107,17 @@ namespace UniConsole
 
                 for (int i = 0; i < options.Length; i++)
                 {
-                    var arr2 = options[i].Split(new char[] { '=' });
-                    if (arr2.Length == 2)
+                    var optionString = options[i];
+                    if (optionString.Contains("="))
                     {
-                        command.Options.Add(arr2[0].Trim(), arr2[1].Trim());
+                        var arr2 = optionString.Split(new char[] { '=' });
+                        if (arr2.Length == 2)
+                        {
+                            command.Options.Add(arr2[0].Trim(), arr2[1].Trim());
+                        }
+                    }
+                    {
+                        command.Options.Add("argument" + i, optionString.Trim());
                     }
                 }
 
