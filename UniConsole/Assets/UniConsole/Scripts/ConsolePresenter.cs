@@ -106,7 +106,8 @@ namespace UniConsole
             {
                 if (!string.IsNullOrEmpty(line))
                 {
-                    argument.WriteLine(line, Prefix);
+                    argument.WriteLine(Prefix + line);
+                    argument.ParseCommand(line);
 
                     // Do not add a duplicated line.
                     if (_historyList.Max() == line)

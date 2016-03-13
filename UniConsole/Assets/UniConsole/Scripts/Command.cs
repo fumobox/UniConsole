@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace UniConsole
 {
@@ -25,6 +26,11 @@ namespace UniConsole
             {
                 return Options.Count != 0;
             }
+        }
+
+        public override string ToString()
+        {
+            return Name + " " + Options.Select(kv => kv.Key + "=" + kv.Value).DefaultIfEmpty("").Aggregate((a, b) => a + " " + b);
         }
 
     }

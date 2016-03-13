@@ -2,6 +2,7 @@
 using UniConsole;
 using UnityEngine.UI;
 using UniRx;
+using System.Collections.Generic;
 
 public class ConsoleDemoScript : MonoBehaviour
 {
@@ -26,9 +27,17 @@ public class ConsoleDemoScript : MonoBehaviour
         // Subscribe commands
         model.CommandStream.Subscribe(command =>
         {
+            Debug.Log(command.ToString());
+
             if (command.Equals("hello"))
             {
                 model.WriteLine("hi!");
+                return;
+            }
+
+            if (command.Equals("text"))
+            {
+                model.WriteLine(new List<string> { "aaaaaaaaaa", "bbbbbbbbbb", "cccccccccc"});
                 return;
             }
 

@@ -55,16 +55,18 @@ namespace UniConsole
             }
         }
 
-        public void WriteLine(string line, string prefix = null, bool updateView = true)
+        public void WriteLine(string line, bool updateView = true)
         {
-            if (string.IsNullOrEmpty(prefix))
-                _lines.Add(line);
-            else
-                _lines.Add(prefix + line);
+            WriteLine(new List<string> { line }, updateView);
+        }
 
-            var command = ParseCommand(line);
-            if (command != null)
-                CommandStream.OnNext(command);
+        public void WriteLine(List<string> lines, bool updateView = true)
+        {
+            if (lines.Count == 0)
+                return;
+
+            foreach(var line in lines)
+                _lines.Add(line);
 
             if (_lines.Count > _maxLines)
                 _lines = _lines.GetRange(_lines.Count - _maxLines, _maxLines);
@@ -87,21 +89,22 @@ namespace UniConsole
         /// open temp.text
         /// create width=32 height = 16
         /// </remarks>
-        public Command ParseCommand(string line)
+        public void ParseCommand(string line)
         {
             if (string.IsNullOrEmpty(line))
-                return null;
+                return;
+
+            Command command = null;
 
             var array = line.Split(new char[] { ' ' });
             if (array.Length == 1)
             {
-                var command = new Command();
+                command = new Command();
                 command.Name = array[0].ToLower();
-                return command;
             }
             else if (array.Length > 1)
             {
-                var command = new Command();
+                command = new Command();
                 command.Name = array[0].ToLower();
                 var options = array.Skip(1).Take(array.Length - 1).ToArray();
 
@@ -116,17 +119,15 @@ namespace UniConsole
                             command.Options.Add(arr2[0].Trim(), arr2[1].Trim());
                         }
                     }
+                    else
                     {
                         command.Options.Add("argument" + i, optionString.Trim());
                     }
                 }
+            }
 
-                return command;
-            }
-            else
-            {
-                return null;
-            }
+            if(command != null)
+                CommandStream.OnNext(command);
         }
 
     }
