@@ -1,13 +1,19 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UniRx;
+using System.Linq;
 
 namespace UniConsole
 {
 
     public class ConsolePresenter : PresenterBase<ConsoleModel>
     {
+        readonly string Prefix = "$ ";
+
+        readonly string BottomSpace = System.Environment.NewLine + System.Environment.NewLine + System.Environment.NewLine;
+
         [SerializeField]
         ScrollRect _scrollRect = null;
 
@@ -23,9 +29,12 @@ namespace UniConsole
         [SerializeField]
         Text[] _texts = null;
 
-        readonly string Prefix = "$ ";
+        [SerializeField]
+        int _historySize = 100;
 
-        readonly string BottomSpace = System.Environment.NewLine + System.Environment.NewLine + System.Environment.NewLine;
+        int _historyIndex;
+
+        List<string> _historyList;
 
         public static ConsolePresenter Create(ConsoleModel model, Transform parent)
         {
@@ -36,6 +45,28 @@ namespace UniConsole
             instance._canvasGroup.alpha = 0;
             instance.ForceInitialize(model);
             return instance;
+        }
+
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                if (_historyIndex >= 0)
+                {
+                    _input.text = _historyList[_historyIndex];
+                    if (_historyIndex != 0)
+                        _historyIndex--;
+                }
+            }
+            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                if (_historyIndex < _historyList.Count)
+                {
+                    _input.text = _historyList[_historyIndex];
+                    if (_historyIndex != _historyList.Count - 1)
+                        _historyIndex++;
+                }
+            }
         }
 
         protected override IPresenter[] Children
@@ -74,7 +105,20 @@ namespace UniConsole
             _input.OnEndEditAsObservable().Subscribe(line =>
             {
                 if (!string.IsNullOrEmpty(line))
+                {
                     argument.WriteLine(line, Prefix);
+
+                    // Do not add a duplicated line.
+                    if (_historyList.Max() == line)
+                        return;
+
+                    _historyList.Add(line);
+
+                    if (_historyList.Count > _historySize)
+                        _historyList = _historyList.GetRange(_historyList.Count - _historySize, _historySize);
+
+                    _historyIndex = _historyList.Count - 1;
+                }
                 _input.text = "";
             }).AddTo(this);
 
@@ -92,6 +136,8 @@ namespace UniConsole
             {
                 text.fontSize = argument.FontSize;
             }
+
+            _historyList = new List<string>();
         }
 
         protected override void Initialize(ConsoleModel argument)

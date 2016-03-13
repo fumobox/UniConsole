@@ -67,14 +67,10 @@ namespace UniConsole
                 CommandStream.OnNext(command);
 
             if (_lines.Count > _maxLines)
-            {
                 _lines = _lines.GetRange(_lines.Count - _maxLines, _maxLines);
-            }
 
             if(updateView)
-            {
                 Text.Value = _lines.DefaultIfEmpty("").Aggregate((a, b) => a + System.Environment.NewLine + b);
-            }
         }
 
         public void Clear()
